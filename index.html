@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diet Soda | Pure Zero Refreshment</title>
+<meta name="description" content="Experience the crisp, clean taste of Diet Soda. Zero sugar, zero compromise.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='%23fbcfe8'/%3E%3Cpath d='M12 6V18M6 12H18' stroke='%23011d17' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#044e3b">
+<meta property="og:title" content="Soda — Pure Zero Refreshment">
+<meta property="og:description" content="Zero sugar. Zero compromise.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Inter:wght@400;500&family=Manrope:wght@400;700&family=Galada&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+<style>
+:root{--bg-color:#0a0a0a;--text-color:#fff;--accent-color:#fff;--muted-color:rgba(255,255,255,.7);--glass-bg:rgba(255,255,255,.05);--glass-border:rgba(255,255,255,.1);--font-main:'Inter',sans-serif;--font-heading:'Galada',cursive;--bg-inner:#0b8a78;--bg-mid:#044e3b;--bg-outer:#011411}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:radial-gradient(circle at center,var(--bg-inner) 0%,var(--bg-mid) 50%,var(--bg-outer) 100%);color:var(--text-color);font-family:var(--font-main);overflow-x:hidden;min-height:100vh;background-attachment:fixed;transition:background 1.2s cubic-bezier(.4,0,.2,1)}
+html{scroll-behavior:smooth}
+body.blue-theme{--bg-inner:#0b4f8a;--bg-mid:#04294e;--bg-outer:#010c14}
+#bubbles-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+.bubble-img{position:absolute;pointer-events:none}
+@keyframes floatUpImg{0%{transform:translateY(0) translateX(0) rotate(0);opacity:0}10%{opacity:.4}90%{opacity:.4}100%{transform:translateY(-110vh) translateX(30px) rotate(360deg);opacity:0}}
+.header{display:flex;justify-content:space-between;align-items:center;padding:2rem 4%;position:fixed;top:0;width:100%;z-index:100}
+.logo{display:flex;align-items:center;gap:.5rem;font-weight:700;font-size:1.2rem;font-family:var(--font-heading)}
+.nav{display:flex;gap:.5rem;background:var(--glass-bg);padding:.4rem;border-radius:100px;border:1px solid var(--glass-border)}
+.nav.glass{position:relative;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);box-shadow:0 8px 32px rgba(0,0,0,.1),inset 0 0 0 1px rgba(255,255,255,.1);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.nav-item{font-family:'Manrope',sans-serif;color:var(--muted-color);text-decoration:none;font-size:.85rem;font-weight:500;padding:.5rem 1.2rem;border-radius:100px;transition:all .3s ease}
+.nav-item:hover,.nav-item.active{background:#fbcfe8;color:#011d17}
+.contact-btn{background:rgba(0,0,0,.5);color:#fff;border:none;padding:.9rem 2rem;border-radius:100px;font-weight:600;font-size:.85rem;cursor:pointer;transition:all .3s ease}
+.contact-btn:hover{background:rgba(0,0,0,.7);transform:translateY(-2px)}
+.hero{height:100vh;display:flex;align-items:center;justify-content:center;padding:0 4%;padding-top:5rem}
+.hero-content{display:flex;justify-content:space-between;align-items:stretch;width:100%;max-width:100%;height:100%;position:relative}
+.main-title,.side-title{font-family:var(--font-heading);font-size:clamp(5rem,10vw,12rem);line-height:.8;font-weight:400;white-space:nowrap;color:#fff}
+.outline{color:var(--text-color)}
+.leaves-container{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1;transition:transform .1s ease-out}
+.leaf{position:absolute;width:60px;height:60px;pointer-events:none;z-index:-1;filter:drop-shadow(0 5px 15px rgba(0,0,0,.2))}
+.l1{top:10%;left:15%}.l2{top:40%;left:80%;width:140px;height:140px;opacity:.4}.l3{top:70%;left:75%;width:80px;height:80px}.l4{top:85%;left:20%;width:120px;height:120px;opacity:.3}
+.hero-left{display:flex;flex-direction:column;height:100%;padding:6rem 0;gap:2rem;z-index:100}
+.description{color:var(--muted-color);font-size:1.1rem;line-height:1.6;max-width:400px}
+.primary-btn{display:flex;align-items:center;gap:1.5rem;background:rgba(0,0,0,.5);color:#fff;border:none;padding:.4rem .4rem .4rem 1.5rem;border-radius:100px;font-weight:700;cursor:pointer;width:fit-content;transition:all .3s ease}
+.primary-btn:hover{background:rgba(0,0,0,.7);transform:translateY(-3px)}
+.plus-icon{background:#fbcfe8;color:#011d17;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:1.4rem;font-weight:900;line-height:1;padding-bottom:2px}
+.award-badge{display:flex;align-items:center;gap:1rem;margin-top:auto}
+.award-icon{width:48px;height:48px;background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:12px;display:flex;align-items:center;justify-content:center}
+.award-text{display:flex;flex-direction:column}
+.award-title{font-size:.7rem;letter-spacing:.1em;color:var(--muted-color)}
+.award-subtitle{font-size:.85rem;font-weight:600}
+.hero-center{display:flex;justify-content:center;align-items:center;position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;opacity:0;animation:fadeIn 1.5s ease-out .3s forwards,float 6s ease-in-out infinite;pointer-events:none;background:radial-gradient(circle at center,rgba(16,185,129,.1) 0%,transparent 70%)}
+@keyframes fadeIn{to{opacity:1}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
+@keyframes shine{from{transform:translateX(-100%) rotate(45deg)}to{transform:translateX(200%) rotate(45deg)}}
+.main-product-3d{width:auto;aspect-ratio:360/740;height:86vh;outline:none;--progress-bar-color:transparent;--poster-color:transparent;z-index:1;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) rotate(25deg);pointer-events:none}
+.main-product-3d[camera-controls]{pointer-events:auto}
+.berries-container{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:110;transition:transform .1s ease-out}
+.berries-container-bg{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;transition:transform .1s ease-out}
+.berry{position:absolute;width:120px;height:120px;outline:none;--progress-bar-color:transparent;filter:drop-shadow(0 10px 20px rgba(0,0,0,.3));transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.berry.no-animation{animation:none!important}
+.b1{top:25%;left:30%;width:220px;height:220px}.b2{top:60%;left:42%;width:100px;height:100px}.b3{top:30%;left:62%;width:250px;height:250px}.b4{top:15%;left:48%;width:140px;height:140px}.b5{top:75%;left:20%;width:120px;height:120px}.b6{top:45%;left:75%;width:180px;height:180px}.b7{top:15%;left:40%;width:80px;height:80px;opacity:.7}.b8{top:50%;left:55%;width:70px;height:70px;opacity:.6}.b9{top:80%;left:35%;width:75px;height:75px;opacity:.7}
+.hero-right{display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;text-align:right;height:100%;padding:6rem 0;z-index:100;width:450px;pointer-events:none}
+.product-carousel{display:flex;flex-direction:column;gap:1.5rem;align-items:flex-end;pointer-events:auto}
+.carousel-cards{display:flex;gap:1rem}
+.card{background:var(--glass-bg);border:1px solid var(--glass-border);padding:1rem;padding-top:5rem;border-radius:28px;display:flex;flex-direction:column;align-items:center;gap:1.5rem;cursor:pointer;transition:all .4s cubic-bezier(.175,.885,.32,1.275);width:135px;position:relative;backdrop-filter:blur(10px);text-align:center}
+.card:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.4)}
+.card.active{border-color:#fbcfe8;border-width:1px;background:var(--glass-bg)}
+.card img{width:140px;height:auto;margin-top:-8rem;filter:drop-shadow(0 20px 35px rgba(0,0,0,.5));transition:transform .5s cubic-bezier(.34,1.56,.64,1)!important;display:block;will-change:transform;pointer-events:none}
+.card:hover img{transform:translateY(-30px) rotate(-12deg) scale(1.15)!important}
+.card-info{display:flex;flex-direction:column;font-size:.7rem;width:100%;word-wrap:break-word}
+.card-info span:first-child{font-weight:600}
+.card-info span:last-child{color:var(--muted-color)}
+.carousel-nav{display:flex;gap:1rem}
+.nav-arrow{background:var(--glass-bg);border:1px solid var(--glass-border);color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .3s}
+.nav-arrow:hover{background:rgba(255,255,255,.1)}
+.side-title{align-self:flex-end;text-align:right}
+@media(max-width:1200px){.main-product-3d{width:auto;height:64vh;top:42%}.hero-content{grid-template-columns:1fr;padding-top:8rem}.hero-center{order:-1}.main-title,.side-title{font-size:5rem}.hero-right{align-items:center;text-align:center}.side-title{align-self:center;text-align:center}}
+
+.logo{color:#fff}.brand-tag{font-family:'Manrope',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#011d17;background:#fbcfe8;padding:.2rem .55rem;border-radius:100px;margin-left:.2rem}
+.brand-footer{position:fixed;bottom:1.2rem;left:50%;transform:translateX(-50%);z-index:100;font-size:.7rem;letter-spacing:.12em;color:var(--muted-color);pointer-events:none;white-space:nowrap}
+.brand-footer b{color:#fbcfe8;font-family:var(--font-heading);font-weight:400;font-size:.95rem;letter-spacing:normal}
+.primary-btn{position:relative}
+.cart-badge{position:absolute;top:-6px;right:-6px;min-width:22px;height:22px;padding:0 6px;border-radius:100px;background:#fbcfe8;color:#011d17;font-size:.72rem;font-weight:800;display:none;align-items:center;justify-content:center;box-shadow:0 0 0 3px rgba(0,0,0,.35)}
+.cart-badge.show{display:flex}
+.nav-arrow:active,.primary-btn:active,.contact-btn:active{transform:scale(.95)}
+.overlay{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;background:rgba(1,12,10,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .35s ease}
+.overlay.open{opacity:1;pointer-events:auto}
+.panel{position:relative;width:min(560px,92vw);max-height:84vh;overflow:auto;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:28px;padding:2.2rem;box-shadow:0 20px 60px rgba(0,0,0,.4);transform:translateY(24px) scale(.97);transition:transform .45s cubic-bezier(.175,.885,.32,1.275)}
+.overlay.open .panel{transform:none}
+.panel h3{font-family:var(--font-heading);font-weight:400;font-size:2.6rem;line-height:1;margin-bottom:.4rem}
+.panel .sub{color:var(--muted-color);font-size:.9rem;margin-bottom:1.4rem;line-height:1.5}
+.panel-close{position:absolute;top:1rem;right:1rem;width:36px;height:36px;border-radius:50%;border:1px solid var(--glass-border);background:var(--glass-bg);color:#fff;cursor:pointer;font-size:1rem}
+.panel-close:hover{background:rgba(255,255,255,.18)}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem}
+.chip{background:rgba(251,207,232,.18);border:1px solid rgba(251,207,232,.5);color:#fbcfe8;padding:.35rem .9rem;border-radius:100px;font-size:.8rem}
+.row{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.9rem 0;border-bottom:1px solid var(--glass-border);font-size:.9rem}
+.row:last-of-type{border-bottom:none}
+.row span.m{color:var(--muted-color);font-size:.8rem}
+.bar{height:8px;border-radius:8px;background:rgba(255,255,255,.12);overflow:hidden;flex:1;max-width:200px}
+.bar i{display:block;height:100%;background:#fbcfe8;border-radius:8px}
+.review{padding:.9rem 0;border-bottom:1px solid var(--glass-border);font-size:.9rem;line-height:1.5}
+.review b{color:#fbcfe8}.stars{color:#fbcfe8;letter-spacing:.1em}
+.field{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.9rem;font-size:.8rem;color:var(--muted-color)}
+.field input,.field textarea{background:rgba(0,0,0,.3);border:1px solid var(--glass-border);border-radius:14px;padding:.75rem 1rem;color:#fff;font-family:inherit;font-size:.9rem;outline:none}
+.field input:focus,.field textarea:focus{border-color:#fbcfe8}
+.pill{background:#fbcfe8;color:#011d17;border:none;padding:.8rem 1.8rem;border-radius:100px;font-weight:700;cursor:pointer;font-size:.9rem;transition:transform .2s}
+.pill:hover{transform:translateY(-2px)}
+.pill:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.qty{display:flex;align-items:center;gap:.6rem}
+.qty button{width:28px;height:28px;border-radius:50%;border:1px solid var(--glass-border);background:var(--glass-bg);color:#fff;cursor:pointer}
+.qty button:hover{background:rgba(255,255,255,.18)}
+.total{display:flex;justify-content:space-between;font-weight:700;font-size:1.05rem;padding:1rem 0}
+.toast{position:fixed;bottom:4rem;left:50%;transform:translate(-50%,20px);z-index:400;background:#fbcfe8;color:#011d17;font-weight:700;font-size:.85rem;padding:.7rem 1.4rem;border-radius:100px;opacity:0;pointer-events:none;transition:all .35s ease}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+.header{transition:background .4s,padding .4s,backdrop-filter .4s}
+.header.scrolled{background:rgba(1,20,17,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding:1rem 4%}
+.scroll-hint{position:absolute;bottom:1.2rem;left:50%;transform:translateX(-50%);z-index:100;font-size:.7rem;letter-spacing:.2em;color:var(--muted-color);text-transform:uppercase;text-align:center;animation:bob 2s ease-in-out infinite;pointer-events:none}
+@keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
+.section{position:relative;z-index:5;padding:7rem 6%;max-width:1300px;margin:0 auto}
+.eyebrow{display:inline-block;font-family:'Manrope',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#011d17;background:#fbcfe8;padding:.3rem .8rem;border-radius:100px;margin-bottom:1rem}
+.sec-title{font-family:var(--font-heading);font-weight:400;font-size:clamp(3rem,6vw,5.5rem);line-height:.95;margin-bottom:1rem}
+.sec-sub{color:var(--muted-color);max-width:560px;line-height:1.6;margin-bottom:3rem}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.gcard{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:28px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.product-detail{display:grid;grid-template-columns:1fr 1.2fr;gap:3rem;align-items:center;padding:3rem;margin-bottom:2.5rem}
+.product-detail.flip{grid-template-columns:1.2fr 1fr}.product-detail.flip .pd-img{order:2}
+.pd-img{display:flex;justify-content:center;position:relative}
+.pd-img::before{content:"";position:absolute;width:75%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(251,207,232,.28),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)}
+.pd-img img{position:relative;height:420px;width:auto;filter:drop-shadow(0 30px 40px rgba(0,0,0,.45));transition:transform .6s cubic-bezier(.34,1.56,.64,1)}
+.product-detail:hover .pd-img img{transform:rotate(-6deg) scale(1.05)}
+.pd-info h3{font-family:var(--font-heading);font-weight:400;font-size:3rem;line-height:1}
+.pd-price{color:#fbcfe8;font-weight:800;font-size:1.3rem;margin:.4rem 0 1rem}.pd-price small{color:var(--muted-color);font-weight:400;font-size:.8rem}
+.pd-info p{color:var(--muted-color);line-height:1.6;margin-bottom:1.2rem}
+.pd-cols{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
+.pd-cols h4{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:#fbcfe8;margin-bottom:.6rem}
+.pd-cols li{list-style:none;font-size:.88rem;padding:.3rem 0;display:flex;gap:.5rem}
+.pd-cols li::before{content:"✓";color:#fbcfe8;font-weight:800}
+.pd-cols .n li::before{content:none}.pd-cols .n li{justify-content:space-between;border-bottom:1px solid var(--glass-border)}
+.pd-cols .n li span:last-child{color:var(--muted-color)}
+.benefit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.benefit{padding:2rem;transition:transform .4s,border-color .4s}.benefit:hover{transform:translateY(-6px);border-color:#fbcfe8}
+.benefit .ic{width:52px;height:52px;border-radius:16px;background:#fbcfe8;color:#011d17;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1rem}
+.benefit h4{font-size:1.05rem;margin-bottom:.4rem}.benefit p{color:var(--muted-color);font-size:.88rem;line-height:1.55}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:2rem}.split>div{padding:2.2rem}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.stat{padding:2rem;text-align:center}.stat b{display:block;font-family:var(--font-heading);font-weight:400;font-size:3.5rem;color:#fbcfe8;line-height:1}.stat span{color:var(--muted-color);font-size:.85rem}
+.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.review-card{padding:2rem;line-height:1.6;font-size:.92rem}.review-card .stars{display:block;margin-bottom:.6rem}.review-card b{display:block;margin-top:1rem;color:#fbcfe8}
+.cta{text-align:center;padding:4rem 2rem;margin:0 6% 3rem}
+.cta .sec-sub{margin-left:auto;margin-right:auto}
+.site-footer{position:relative;z-index:5;text-align:center;padding:2rem 6% 3rem;color:var(--muted-color);font-size:.78rem;letter-spacing:.1em}
+.site-footer b{color:#fbcfe8;font-family:var(--font-heading);font-weight:400;font-size:1.3rem;letter-spacing:normal}
+@media(max-width:900px){.product-detail,.product-detail.flip,.split{grid-template-columns:1fr}.product-detail.flip .pd-img{order:0}.benefit-grid,.review-grid,.stat-row{grid-template-columns:1fr}.pd-cols{grid-template-columns:1fr}.pd-img img{height:320px}}
+.main-product-3d{pointer-events:auto;cursor:pointer}
+</style>
+</head>
+<body>
+<div id="bubbles-container"></div>
+<header class="header" id="top-header">
+<div class="logo"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="11" fill="#fbcfe8"/><path d="M12 7V17M7 12H17" stroke="#011d17" stroke-width="2.4" stroke-linecap="round"/></svg><span>Soda</span><small class="brand-tag">Zero Sugar Co.</small></div>
+<nav class="nav glass"><a href="#" class="nav-item active" data-panel="home">Home</a><a href="#" class="nav-item" data-panel="ingredients">Ingredients</a><a href="#" class="nav-item" data-panel="taste">Taste</a><a href="#" class="nav-item" data-panel="eco">Eco</a><a href="#" class="nav-item" data-panel="reviews">Reviews</a></nav>
+<button class="contact-btn" id="contact-btn">Contact Us</button>
+</header>
+<main class="hero"><div class="hero-content">
+<div class="leaves-container">
+<model-viewer class="leaf l1" src="https://api.getlayers.ai/storage/v1/object/public/public/assets/soda-14ff8a788d/leaves.glb" environment-image="neutral" exposure="1.0" interaction-prompt="none" camera-orbit="45deg 75deg 105%"></model-viewer>
+<model-viewer class="leaf l2" src="https://api.getlayers.ai/storage/v1/object/public/public/assets/soda-14ff8a788d/leaves.glb" environment-image="neutral" exposure="1.0" interaction-prompt="none" camera-orbit="-30deg 60deg 105%"></model-viewer>
+<model-viewer class="leaf l3" src="https://api.getlayers.ai/storage/v1/object/public/public/assets/soda-14ff8a788d/leaves.glb" environment-image="neutral" exposure="1.0" interaction-prompt="none" camera-orbit="120deg 85deg 105%"></model-viewer>
+<model-viewer class="leaf l4" src="https://api.getlayers.ai/storage/v1/object/public/public/assets/soda-14ff8a788d/leaves.glb" environment-image="neutral" exposure="1.0" interaction-prompt="none" camera-orbit="10deg 45deg 105%"></model-viewer>
+</div>
+<div class="hero-left">
+<h1 class="main-title large-animation-1"><span class="outline">Pure</span><br>Zero</h1>
+<p class="description">Unleash the crisp taste of zero sugar. <br>Refreshment redefined in every bubble — <br>all in one sleek design.</p>
+<div class="cta-group"><button class="primary-btn" id="shop-btn">Shop Now<span class="plus-icon">+</span><span class="cart-badge" id="cart-badge">0</span></button></div>
+<div class="award-badge">
+<div class="award-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 15L15 18L19 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+<div class="award-text"><span class="award-title">DESIGN AWARDS</span><span class="award-subtitle">PREMIUM BEVERAGE 2025</span></div>
+</div>
+</div>
+<div class="berries-container-bg">
+<model-viewer class="berry b7" src="https://api.getlayers.ai/storage/v1/object/public/public/assets/soda-14ff8a788d/cherry.glb" environment-image="neutral" exposure="1.0" interaction-prompt="none" camera-orbit="-20deg 110deg 105%"></model-viewer>
+<model-viewer class="berry b8" src="https://api.getlayers.ai/storage/v1/object/public/public/assets/soda-14ff8a788d/cherry.glb" environment-image="neutral" exposure="1.0" interaction-prompt="none" camera-orbit="160deg 45deg 105%"></model-viewer>
+<model-viewer class="berry b9" src="https://api.getlayers.ai/storage/v1/object/public/public/assets/soda-14ff8a788d/cherry.glb" environment-image="neutral" exposure="1.0" interaction-prompt="none" camera-orbit="45deg 20deg 105%"></model-viewer>
+</div>
+<div class="hero-center">
+<canvas id="product-model" class="main-product-3d" width="720" height="1480" aria-label="Soda can" title="Click to switch flavor"></canvas>
+</div>
+<div class="berries-container">
+<model-viewer class="berry b1" src="https://api.getlayers.ai/storage/v1/object/public/public/assets/soda-14ff8a788d/cherry.glb" environment-image="neutral" exposure="1.2" interaction-prompt="none" camera-orbit="45deg 120deg 105%"></model-viewer>
+<model-viewer class="berry b2" src="https://api.getlayers.ai/storage/v1/object/public/public/assets/soda-14ff8a788d/cherry.glb" environment-image="neutral" exposure="1.2" interaction-prompt="none" camera-orbit="-120deg 45deg 105%"></model-viewer>
+<model-viewer class="berry b3" src="https://api.getlayers.ai/storage/v1/object/public/public/assets/soda-14ff8a788d/cherry.glb" environment-image="neutral" exposure="1.2" interaction-prompt="none" camera-orbit="200deg 90deg 105%"></model-viewer>
+<model-viewer class="berry b4" src="https://api.getlayers.ai/storage/v1/object/public/public/assets/soda-14ff8a788d/cherry.glb" environment-image="neutral" exposure="1.2" interaction-prompt="none" camera-orbit="10deg 20deg 105%"></model-viewer>
+<model-viewer class="berry b5" src="https://api.getlayers.ai/storage/v1/object/public/public/assets/soda-14ff8a788d/cherry.glb" environment-image="neutral" exposure="1.2" interaction-prompt="none" camera-orbit="-45deg 160deg 105%"></model-viewer>
+<model-viewer class="berry b6" src="https://api.getlayers.ai/storage/v1/object/public/public/assets/soda-14ff8a788d/cherry.glb" environment-image="neutral" exposure="1.2" interaction-prompt="none" camera-orbit="80deg 75deg 105%"></model-viewer>
+</div>
+<div class="hero-right">
+<div class="product-carousel">
+<div class="carousel-cards">
+<div class="card active" data-flavor="classic"><img src="data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 380%22%3E%3Cdefs%3E%3ClinearGradient id=%22b%22 x1=%220%22 x2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23065f46%22/%3E%3Cstop offset=%22.3%22 stop-color=%22%2334d399%22/%3E%3Cstop offset=%22.65%22 stop-color=%22%23059669%22/%3E%3Cstop offset=%221%22 stop-color=%22%23065f46%22/%3E%3C/linearGradient%3E%3ClinearGradient id=%22m%22 x1=%220%22 x2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%238d9aa0%22/%3E%3Cstop offset=%22.35%22 stop-color=%22%23f4f7f8%22/%3E%3Cstop offset=%22.7%22 stop-color=%22%23b5c0c5%22/%3E%3Cstop offset=%221%22 stop-color=%22%236f7c82%22/%3E%3C/linearGradient%3E%3ClinearGradient id=%22s%22 x1=%220%22 x2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23fff%22 stop-opacity=%220%22/%3E%3Cstop offset=%22.2%22 stop-color=%22%23fff%22 stop-opacity=%22.45%22/%3E%3Cstop offset=%22.32%22 stop-color=%22%23fff%22 stop-opacity=%220%22/%3E%3C/linearGradient%3E%3Cpath id=%22arc%22 d=%22M48 128Q100 96 152 128%22/%3E%3Cpath id=%22arc2%22 d=%22M52 276Q100 296 148 276%22/%3E%3CradialGradient id=%22c%22 cx=%22.35%22 cy=%22.3%22 r=%22.8%22%3E%3Cstop offset=%220%22 stop-color=%22%23ff8a9a%22/%3E%3Cstop offset=%22.5%22 stop-color=%22%23e11d48%22/%3E%3Cstop offset=%221%22 stop-color=%22%237f1029%22/%3E%3C/radialGradient%3E%3C/defs%3E%3Cpath d=%22M32 52Q32 40 48 36H152Q168 40 168 52V330Q168 346 152 350H48Q32 346 32 330Z%22 fill=%22url%28%23b%29%22/%3E%3Cpath d=%22M32 52Q40 30 62 26H138Q160 30 168 52L168 60H32Z%22 fill=%22url%28%23m%29%22/%3E%3Cellipse cx=%22100%22 cy=%2230%22 rx=%2252%22 ry=%229%22 fill=%22url%28%23m%29%22/%3E%3Cellipse cx=%22100%22 cy=%2229%22 rx=%2238%22 ry=%225%22 fill=%22%2359656b%22/%3E%3Cpath d=%22M32 330Q34 350 56 354H144Q166 350 168 330V338Q166 358 144 362H56Q34 358 32 338Z%22 fill=%22url%28%23m%29%22/%3E%3Cpath d=%22M32 150Q70 128 100 150T168 142V268Q130 292 100 268T32 276Z%22 fill=%22%23fbcfe8%22 opacity=%22.92%22/%3E%3Ccircle cx=%22100%22 cy=%22205%22 r=%2262%22 fill=%22%23fff%22 opacity=%22.96%22/%3E%3Ccircle cx=%22100%22 cy=%22205%22 r=%2262%22 fill=%22none%22 stroke=%22%23059669%22 stroke-width=%224%22/%3E%3Ccircle cx=%22100%22 cy=%22205%22 r=%2254%22 fill=%22none%22 stroke=%22%23059669%22 stroke-width=%221.2%22 stroke-dasharray=%223 4%22/%3E%3Cpath d=%22M84 198Q94 160 110 152M117 203Q116 170 110 152%22 stroke=%22%2314532d%22 stroke-width=%223.5%22 fill=%22none%22 stroke-linecap=%22round%22/%3E%3Cpath d=%22M110 152Q132 136 150 150Q128 166 110 152Z%22 fill=%22%2334d399%22 stroke=%22%23065f46%22 stroke-width=%221.5%22/%3E%3Ccircle cx=%2283%22 cy=%22218%22 r=%2219%22 fill=%22url%28%23c%29%22/%3E%3Ccircle cx=%22118%22 cy=%22224%22 r=%2219%22 fill=%22url%28%23c%29%22/%3E%3Cellipse cx=%2276%22 cy=%22211%22 rx=%226%22 ry=%224%22 fill=%22%23fff%22 opacity=%22.75%22 transform=%22rotate%28-30 76 211%29%22/%3E%3Cellipse cx=%22111%22 cy=%22217%22 rx=%226%22 ry=%224%22 fill=%22%23fff%22 opacity=%22.75%22 transform=%22rotate%28-30 111 217%29%22/%3E%3Ctext font-family=%22Arial,sans-serif%22 font-weight=%22800%22 font-size=%2210%22 letter-spacing=%223%22 fill=%22%23fff%22%3E%3CtextPath href=%22%23arc%22 startOffset=%2250%25%22 text-anchor=%22middle%22%3EORIGINAL %C2%B7 ZERO SUGAR%3C/textPath%3E%3C/text%3E%3Ctext x=%22100%22 y=%2272%22 text-anchor=%22middle%22 font-family=%22Georgia,serif%22 font-style=%22italic%22 font-weight=%22700%22 font-size=%2226%22 fill=%22%23fff%22%3ESoda%3C/text%3E%3Ctext x=%22100%22 y=%22316%22 text-anchor=%22middle%22 font-family=%22Arial,sans-serif%22 font-weight=%22800%22 font-size=%2213%22 letter-spacing=%222.5%22 fill=%22%23fff%22%3EDIET CLASSIC%3C/text%3E%3Ctext x=%22100%22 y=%22334%22 text-anchor=%22middle%22 font-family=%22Arial,sans-serif%22 font-weight=%22600%22 font-size=%229%22 letter-spacing=%222%22 fill=%22%23fff%22 opacity=%22.85%22%3E350 ml %C2%B7 0 CAL%3C/text%3E%3Crect x=%2232%22 y=%2236%22 width=%22136%22 height=%22314%22 rx=%2214%22 fill=%22url%28%23s%29%22/%3E%3C/svg%3E" alt="Diet Classic"><div class="card-info"><span>Diet Classic</span><span>₱65.00</span></div></div>
+<div class="card" data-flavor="blue"><img src="data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 380%22%3E%3Cdefs%3E%3ClinearGradient id=%22b%22 x1=%220%22 x2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%231e3a8a%22/%3E%3Cstop offset=%22.3%22 stop-color=%22%2360a5fa%22/%3E%3Cstop offset=%22.65%22 stop-color=%22%231d4ed8%22/%3E%3Cstop offset=%221%22 stop-color=%22%231e3a8a%22/%3E%3C/linearGradient%3E%3ClinearGradient id=%22m%22 x1=%220%22 x2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%238d9aa0%22/%3E%3Cstop offset=%22.35%22 stop-color=%22%23f4f7f8%22/%3E%3Cstop offset=%22.7%22 stop-color=%22%23b5c0c5%22/%3E%3Cstop offset=%221%22 stop-color=%22%236f7c82%22/%3E%3C/linearGradient%3E%3ClinearGradient id=%22s%22 x1=%220%22 x2=%221%22%3E%3Cstop offset=%220%22 stop-color=%22%23fff%22 stop-opacity=%220%22/%3E%3Cstop offset=%22.2%22 stop-color=%22%23fff%22 stop-opacity=%22.45%22/%3E%3Cstop offset=%22.32%22 stop-color=%22%23fff%22 stop-opacity=%220%22/%3E%3C/linearGradient%3E%3Cpath id=%22arc%22 d=%22M48 128Q100 96 152 128%22/%3E%3Cpath id=%22arc2%22 d=%22M52 276Q100 296 148 276%22/%3E%3CradialGradient id=%22c%22 cx=%22.35%22 cy=%22.3%22 r=%22.8%22%3E%3Cstop offset=%220%22 stop-color=%22%23a5b4fc%22/%3E%3Cstop offset=%22.5%22 stop-color=%22%234338ca%22/%3E%3Cstop offset=%221%22 stop-color=%22%231e1b4b%22/%3E%3C/radialGradient%3E%3C/defs%3E%3Cpath d=%22M32 52Q32 40 48 36H152Q168 40 168 52V330Q168 346 152 350H48Q32 346 32 330Z%22 fill=%22url%28%23b%29%22/%3E%3Cpath d=%22M32 52Q40 30 62 26H138Q160 30 168 52L168 60H32Z%22 fill=%22url%28%23m%29%22/%3E%3Cellipse cx=%22100%22 cy=%2230%22 rx=%2252%22 ry=%229%22 fill=%22url%28%23m%29%22/%3E%3Cellipse cx=%22100%22 cy=%2229%22 rx=%2238%22 ry=%225%22 fill=%22%2359656b%22/%3E%3Cpath d=%22M32 330Q34 350 56 354H144Q166 350 168 330V338Q166 358 144 362H56Q34 358 32 338Z%22 fill=%22url%28%23m%29%22/%3E%3Cpath d=%22M32 150Q70 128 100 150T168 142V268Q130 292 100 268T32 276Z%22 fill=%22%23fbcfe8%22 opacity=%22.92%22/%3E%3Ccircle cx=%22100%22 cy=%22205%22 r=%2262%22 fill=%22%23fff%22 opacity=%22.96%22/%3E%3Ccircle cx=%22100%22 cy=%22205%22 r=%2262%22 fill=%22none%22 stroke=%22%231d4ed8%22 stroke-width=%224%22/%3E%3Ccircle cx=%22100%22 cy=%22205%22 r=%2254%22 fill=%22none%22 stroke=%22%231d4ed8%22 stroke-width=%221.2%22 stroke-dasharray=%223 4%22/%3E%3Cpath d=%22M110 152Q132 136 150 150Q128 166 110 152Z%22 fill=%22%2334d399%22 stroke=%22%23065f46%22 stroke-width=%221.5%22/%3E%3Ccircle cx=%2284%22 cy=%22222%22 r=%2216%22 fill=%22url%28%23c%29%22/%3E%3Ccircle cx=%22117%22 cy=%22222%22 r=%2216%22 fill=%22url%28%23c%29%22/%3E%3Ccircle cx=%22100%22 cy=%22196%22 r=%2216%22 fill=%22url%28%23c%29%22/%3E%3Cpath d=%22M80 217l4 3 4-3M113 217l4 3 4-3M96 191l4 3 4-3%22 stroke=%22%230f0d3a%22 stroke-width=%222%22 fill=%22none%22 stroke-linecap=%22round%22/%3E%3Cellipse cx=%2278%22 cy=%22215%22 rx=%225%22 ry=%223%22 fill=%22%23fff%22 opacity=%22.7%22/%3E%3Cellipse cx=%22111%22 cy=%22215%22 rx=%225%22 ry=%223%22 fill=%22%23fff%22 opacity=%22.7%22/%3E%3Cellipse cx=%2294%22 cy=%22189%22 rx=%225%22 ry=%223%22 fill=%22%23fff%22 opacity=%22.7%22/%3E%3Ctext font-family=%22Arial,sans-serif%22 font-weight=%22800%22 font-size=%2210%22 letter-spacing=%223%22 fill=%22%23fff%22%3E%3CtextPath href=%22%23arc%22 startOffset=%2250%25%22 text-anchor=%22middle%22%3EORIGINAL %C2%B7 ZERO SUGAR%3C/textPath%3E%3C/text%3E%3Ctext x=%22100%22 y=%2272%22 text-anchor=%22middle%22 font-family=%22Georgia,serif%22 font-style=%22italic%22 font-weight=%22700%22 font-size=%2226%22 fill=%22%23fff%22%3ESoda%3C/text%3E%3Ctext x=%22100%22 y=%22316%22 text-anchor=%22middle%22 font-family=%22Arial,sans-serif%22 font-weight=%22800%22 font-size=%2213%22 letter-spacing=%222.5%22 fill=%22%23fff%22%3EZERO LIME%3C/text%3E%3Ctext x=%22100%22 y=%22334%22 text-anchor=%22middle%22 font-family=%22Arial,sans-serif%22 font-weight=%22600%22 font-size=%229%22 letter-spacing=%222%22 fill=%22%23fff%22 opacity=%22.85%22%3E350 ml %C2%B7 0 CAL%3C/text%3E%3Crect x=%2232%22 y=%2236%22 width=%22136%22 height=%22314%22 rx=%2214%22 fill=%22url%28%23s%29%22/%3E%3C/svg%3E" alt="Zero Lime" style="filter: brightness(0.7);"><div class="card-info"><span>Zero Lime</span><span>₱65.00</span></div></div>
+</div>
+<div class="carousel-nav"><button class="nav-arrow" id="prev-flavor" aria-label="Previous flavor">←</button><button class="nav-arrow" id="next-flavor" aria-label="Next flavor">→</button></div>
+</div>
+<h2 class="side-title large-animation-1"><span class="outline">Refreshingly</span><br>Clean</h2>
+</div>
+<div class="scroll-hint">Scroll<br>↓</div></div></main>
+
+<div class="overlay" id="overlay"><div class="panel" id="panel" role="dialog" aria-modal="true"><button class="panel-close" id="panel-close" aria-label="Close">✕</button><div id="panel-body"></div></div></div>
+<div class="toast" id="toast"></div>
+
+<section class="section" id="products"><span class="eyebrow reveal">Our flavors</span><h2 class="sec-title reveal">Pick your <span class="outline">fizz</span></h2>
+<p class="sec-sub reveal">Two flavors, one promise: bold taste with zero sugar. Here's everything inside each can.</p>
+<div class="product-detail gcard reveal"><div class="pd-img"><img data-img="classic" alt="Diet Classic"></div>
+<div class="pd-info"><h3>Diet Classic</h3><div class="pd-price">₱65.00 <small>/ 330 ml can</small></div><p>The original. Bright cherry-citrus with a crisp, clean finish and lively bubbles that stay fizzy to the last sip.</p>
+<div class="pd-cols"><div><h4>Benefits</h4><ul><li>Zero sugar, zero calories</li><li>Real cherry and citrus notes</li><li>Extra-fine carbonation</li><li>Light, never syrupy</li></ul></div><div><h4>Per can</h4><ul class="n"><li><span>Calories</span><span>0</span></li><li><span>Sugar</span><span>0 g</span></li><li><span>Sodium</span><span>10 mg</span></li><li><span>Vitamin C</span><span>20 mg</span></li></ul></div></div>
+<button class="pill" data-add="classic">Add to cart +</button></div></div>
+<div class="product-detail gcard reveal flip"><div class="pd-img"><img data-img="blue" alt="Zero Lime"></div>
+<div class="pd-info"><h3>Zero Lime</h3><div class="pd-price">₱65.00 <small>/ 330 ml can</small></div><p>Cool lime meets juicy blueberry for a sharper, icier zing. Made for hot days, long study nights and late-night snacks.</p>
+<div class="pd-cols"><div><h4>Benefits</h4><ul><li>Zero sugar, zero calories</li><li>Lime and blueberry blend</li><li>Extra cold, extra crisp</li><li>No artificial colors</li></ul></div><div><h4>Per can</h4><ul class="n"><li><span>Calories</span><span>0</span></li><li><span>Sugar</span><span>0 g</span></li><li><span>Sodium</span><span>10 mg</span></li><li><span>Vitamin C</span><span>20 mg</span></li></ul></div></div>
+<button class="pill" data-add="blue">Add to cart +</button></div></div>
+</section>
+<section class="section" id="benefits"><span class="eyebrow reveal">Why Soda</span><h2 class="sec-title reveal">Benefits that <span class="outline">pop</span></h2>
+<p class="sec-sub reveal">Everything you love about soda, minus the stuff you don't.</p>
+<div class="benefit-grid">
+<div class="benefit gcard reveal"><div class="ic">🍬</div><h4>Zero sugar</h4><p>Sweetened with stevia leaf extract. Great taste without the sugar crash.</p></div>
+<div class="benefit gcard reveal"><div class="ic">⚡</div><h4>0 calories</h4><p>Refresh anytime without counting. Fits almost any lifestyle.</p></div>
+<div class="benefit gcard reveal"><div class="ic">🫧</div><h4>Real fizz</h4><p>Extra-fine bubbles that stay lively from first pop to last sip.</p></div>
+<div class="benefit gcard reveal"><div class="ic">🍒</div><h4>Natural flavors</h4><p>Cherry, lime and blueberry notes with no artificial colors.</p></div>
+<div class="benefit gcard reveal"><div class="ic">🍊</div><h4>Vitamin C boost</h4><p>20 mg of vitamin C in every can, because why not.</p></div>
+<div class="benefit gcard reveal"><div class="ic">♻️</div><h4>Planet friendly</h4><p>Recyclable aluminum cans and plant-based inks.</p></div>
+</div></section>
+<section class="section" id="ingredients"><span class="eyebrow reveal">Ingredients</span><h2 class="sec-title reveal">Simple. <span class="outline">Clean.</span></h2>
+<p class="sec-sub reveal">Short list, no mystery. Every ingredient is here for a reason.</p>
+<div class="split"><div class="gcard reveal"><h4 style="margin-bottom:1rem">What's inside</h4><div class="chips"><span class="chip">Sparkling water</span><span class="chip">Natural flavors</span><span class="chip">Citric acid</span><span class="chip">Stevia leaf extract</span><span class="chip">Vitamin C</span></div><p class="sec-sub" style="margin:0">No artificial colors. No high-fructose corn syrup. No preservatives.</p></div>
+<div class="gcard reveal" id="taste"><h4 style="margin-bottom:1rem">Taste profile</h4>
+<div class="row"><span>Fizz</span><div class="bar"><i style="width:90%"></i></div></div><div class="row"><span>Sweetness</span><div class="bar"><i style="width:55%"></i></div></div><div class="row"><span>Citrus</span><div class="bar"><i style="width:75%"></i></div></div><div class="row"><span>Berry notes</span><div class="bar"><i style="width:65%"></i></div></div></div></div></section>
+<section class="section" id="eco"><span class="eyebrow reveal">Eco</span><h2 class="sec-title reveal">Kinder to the <span class="outline">planet</span></h2>
+<p class="sec-sub reveal">Good for you, and a little better for the world around you.</p>
+<div class="stat-row"><div class="stat gcard reveal"><b>100%</b><span>recyclable aluminum cans</span></div><div class="stat gcard reveal"><b>0</b><span>plastic in our multipacks</span></div><div class="stat gcard reveal"><b>2027</b><span>carbon-neutral shipping goal</span></div></div></section>
+<section class="section" id="reviews"><span class="eyebrow reveal">Reviews</span><h2 class="sec-title reveal">Loved by <span class="outline">everyone</span></h2>
+<p class="sec-sub reveal"><span class="stars">★★★★★</span> 4.9 average · sample reviews</p>
+<div class="review-grid">
+<div class="review-card gcard reveal"><span class="stars">★★★★★</span>Finally a zero-sugar soda that doesn't taste like zero sugar.<b>Mika R.</b></div>
+<div class="review-card gcard reveal"><span class="stars">★★★★★</span>Zero Lime is dangerously refreshing. A whole pack gone in a day.<b>Jay D.</b></div>
+<div class="review-card gcard reveal"><span class="stars">★★★★★</span>Love the design and the fizz. My fridge is fully stocked now.<b>Ana L.</b></div>
+</div></section>
+<div class="cta gcard reveal"><h2 class="sec-title">Ready to pop one?</h2><p class="sec-sub">Grab your favorite flavor, ₱65 a can.</p><button class="pill" id="cta-shop">Shop now</button></div>
+<footer class="site-footer"><b>Soda</b><br>ZERO SUGAR. ZERO COMPROMISE. · © 2026 SODA ZERO SUGAR CO.</footer>
+<svg style="position:absolute;width:0;height:0;opacity:0;pointer-events:none;"><filter id="frosted"><feTurbulence type="fractalNoise" baseFrequency="0.0125" numOctaves="3" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="80" xChannelSelector="R" yChannelSelector="G"/></filter></svg>
+<div style="display:none;">
+<model-viewer src="https://api.getlayers.ai/storage/v1/object/public/public/assets/soda-14ff8a788d/blueberry.glb"></model-viewer>
+<model-viewer src="https://api.getlayers.ai/storage/v1/object/public/public/assets/soda-14ff8a788d/cherry.glb"></model-viewer>
+</div>
+<script>
+const A='https://api.getlayers.ai/storage/v1/object/public/public/assets/soda-14ff8a788d/';
+const CHERRY=A+'cherry.glb',BLUEBERRY=A+'blueberry.glb';
+const modelViewer=document.querySelector('#product-model');
+const berriesFG=document.querySelector('.berries-container');
+const berriesBG=document.querySelector('.berries-container-bg');
+const leavesBG=document.querySelector('.leaves-container');
+const allBerries=document.querySelectorAll('.berry');
+const cards=document.querySelectorAll('.card');
+let isSwitching=false,switchSpin=0,blueTexture=null,greenTexture=null;
+
+// ===== Original branded can: cylinder-mapped label drawn on canvas =====
+const canCtx=modelViewer.getContext('2d');
+const CW=360,CH=740,CR=150,CX=180,TW=1440,TH=1000;
+canCtx.scale(2,2);
+let canFlavor='classic',canRot=0,canTex={},lastKey='';
+const cs={v:1};
+const PAL={classic:{c1:'#34d399',c2:'#059669',c3:'#065f46',fruit:'cherry',name:'DIET CLASSIC'},blue:{c1:'#60a5fa',c2:'#1d4ed8',c3:'#1e3a8a',fruit:'blue',name:'ZERO LIME'}};
+function makeTex(k){
+  const p=PAL[k],c=document.createElement('canvas');c.width=TW;c.height=TH;const g=c.getContext('2d');
+  const fx=TW/2;
+  let gr=g.createLinearGradient(0,0,0,TH);gr.addColorStop(0,p.c1);gr.addColorStop(.5,p.c2);gr.addColorStop(1,p.c3);g.fillStyle=gr;g.fillRect(0,0,TW,TH);
+  // silver top and bottom
+  let st=g.createLinearGradient(0,0,0,125);st.addColorStop(0,'#f7fafb');st.addColorStop(1,'#8d9aa0');g.fillStyle=st;g.fillRect(0,0,TW,125);
+  let sb=g.createLinearGradient(0,900,0,TH);sb.addColorStop(0,'#8d9aa0');sb.addColorStop(1,'#eef2f3');g.fillStyle=sb;g.fillRect(0,900,TW,100);
+  // pink wave band
+  g.fillStyle='rgba(251,207,232,.93)';g.beginPath();
+  for(let x=0;x<=TW;x+=8){const y=345+Math.sin(x/TW*Math.PI*8)*28;x?g.lineTo(x,y):g.moveTo(x,y)}
+  for(let x=TW;x>=0;x-=8){g.lineTo(x,655+Math.sin(x/TW*Math.PI*8)*28)}
+  g.closePath();g.fill();
+  g.textAlign='center';
+  // front badge
+  g.fillStyle='#fff';g.beginPath();g.arc(fx,500,190,0,7);g.fill();
+  g.strokeStyle=p.c2;g.lineWidth=14;g.beginPath();g.arc(fx,500,190,0,7);g.stroke();
+  g.lineWidth=3;g.setLineDash([10,14]);g.beginPath();g.arc(fx,500,166,0,7);g.stroke();g.setLineDash([]);
+  const ball=(x,y,r,c0,c1,c2)=>{const rg=g.createRadialGradient(x-r*.3,y-r*.35,r*.1,x,y,r);rg.addColorStop(0,c0);rg.addColorStop(.5,c1);rg.addColorStop(1,c2);g.fillStyle=rg;g.beginPath();g.arc(x,y,r,0,7);g.fill();g.fillStyle='rgba(255,255,255,.8)';g.beginPath();g.ellipse(x-r*.35,y-r*.4,r*.28,r*.17,-.5,0,7);g.fill()};
+  g.strokeStyle='#14532d';g.lineWidth=12;g.lineCap='round';
+  if(p.fruit==='cherry'){
+    g.beginPath();g.moveTo(fx-62,478);g.quadraticCurveTo(fx-40,400,fx+20,372);g.moveTo(fx+66,494);g.quadraticCurveTo(fx+60,420,fx+20,372);g.stroke();
+    ball(fx-62,545,64,'#ff8a9a','#e11d48','#7f1029');ball(fx+66,560,64,'#ff8a9a','#e11d48','#7f1029');
+  }else{
+    ball(fx-64,548,52,'#a5b4fc','#4338ca','#1e1b4b');ball(fx+64,548,52,'#a5b4fc','#4338ca','#1e1b4b');ball(fx,470,52,'#a5b4fc','#4338ca','#1e1b4b');
+    g.strokeStyle='#0f0d3a';g.lineWidth=7;[[fx-64,548],[fx+64,548],[fx,470]].forEach(([x,y])=>{g.beginPath();g.moveTo(x-14,y-8);g.lineTo(x,y+3);g.lineTo(x+14,y-8);g.stroke()});
+  }
+  g.fillStyle='#34d399';g.strokeStyle='#065f46';g.lineWidth=6;g.beginPath();g.moveTo(fx+20,372);g.quadraticCurveTo(fx+90,330,fx+140,375);g.quadraticCurveTo(fx+80,415,fx+20,372);g.fill();g.stroke();
+  // front text
+  g.save();g.shadowColor='rgba(0,0,0,.35)';g.shadowBlur=14;g.fillStyle='#fff';g.font='190px Galada, Georgia, serif';g.fillText('Soda',fx,255);g.restore();
+  g.fillStyle='#fff';g.font='bold 40px Arial, sans-serif';if('letterSpacing' in g)g.letterSpacing='9px';g.fillText('ORIGINAL · ZERO SUGAR',fx,320);
+  g.font='bold 84px Arial, sans-serif';g.fillText(p.name,fx,800);
+  g.font='600 46px Arial, sans-serif';g.fillText('350 ml · 0 CAL',fx,865);
+  // sides: small logo
+  [fx-360,fx+360].forEach(x=>{g.fillStyle='#fff';g.font='120px Galada, Georgia, serif';if('letterSpacing' in g)g.letterSpacing='0px';g.fillText('Soda',x,520);g.font='bold 34px Arial, sans-serif';if('letterSpacing' in g)g.letterSpacing='8px';g.fillText('ZERO SUGAR',x,580)});
+  // back: facts (drawn at both texture edges so the seam is invisible)
+  [0,TW].forEach(x=>{g.fillStyle='#fff';g.font='bold 52px Arial, sans-serif';if('letterSpacing' in g)g.letterSpacing='4px';g.fillText('NUTRITION',x,430);
+    g.font='600 40px Arial, sans-serif';g.fillText('0 CALORIES',x,500);g.fillText('0 g SUGAR',x,555);g.fillText('20 mg VITAMIN C',x,610);g.fillText('10 mg SODIUM',x,665);
+    g.font='bold 36px Arial, sans-serif';g.fillText('100% RECYCLABLE',x,760)});
+  return c;
+}
+function canPath(g){g.beginPath();g.moveTo(100,52);g.quadraticCurveTo(60,70,38,100);g.quadraticCurveTo(30,112,30,125);g.lineTo(30,640);g.quadraticCurveTo(30,668,58,682);g.lineTo(90,696);g.quadraticCurveTo(180,712,270,696);g.lineTo(302,682);g.quadraticCurveTo(330,668,330,640);g.lineTo(330,125);g.quadraticCurveTo(330,112,322,100);g.quadraticCurveTo(300,70,260,52);g.closePath()}
+function drawCan(){
+  const t=canTex[canFlavor];if(!t)return;
+  const key=canFlavor+canRot.toFixed(3);if(key===lastKey)return;lastKey=key;
+  const g=canCtx;g.clearRect(0,0,CW,CH);
+  g.save();canPath(g);g.clip();
+  for(let x=CX-CR;x<CX+CR;x++){
+    const s=(x+.5-CX)/CR,th=Math.asin(Math.max(-1,Math.min(1,s)));
+    let u=((th+canRot)/(2*Math.PI)+.5)%1;if(u<0)u+=1;
+    const sw=Math.min(40,TW/(2*Math.PI)/(CR*Math.max(.05,Math.cos(th))))+.5;
+    g.drawImage(t,u*TW,0,sw,TH,x,48,1.6,662);
+  }
+  const L=g.createLinearGradient(CX-CR,0,CX+CR,0);
+  [[0,'rgba(0,0,0,.6)'],[.1,'rgba(0,0,0,.12)'],[.24,'rgba(255,255,255,.3)'],[.33,'rgba(255,255,255,0)'],[.7,'rgba(0,0,0,0)'],[.88,'rgba(255,255,255,.14)'],[1,'rgba(0,0,0,.6)']].forEach(([o,c])=>L.addColorStop(o,c));
+  g.fillStyle=L;g.fillRect(0,0,CW,CH);g.restore();
+  const rim=g.createLinearGradient(100,0,260,0);rim.addColorStop(0,'#8d9aa0');rim.addColorStop(.4,'#f7fafb');rim.addColorStop(1,'#7b878d');
+  g.fillStyle=rim;g.beginPath();g.ellipse(CX,50,80,14,0,0,7);g.fill();
+  g.fillStyle='#4a565c';g.beginPath();g.ellipse(CX,50,64,9,0,0,7);g.fill();
+}
+(document.fonts&&document.fonts.load?document.fonts.load('150px Galada').catch(()=>{}):Promise.resolve()).then(()=>{canTex.classic=makeTex('classic');canTex.blue=makeTex('blue');lastKey=''});
+
+cards.forEach(card=>{
+  card.addEventListener('click',()=>{
+    if(isSwitching)return;
+    cards.forEach(c=>c.classList.remove('active'));
+    card.classList.add('active');
+    switchFlavor(card.dataset.flavor);
+  });
+});
+
+async function switchFlavor(flavor){
+  if(isSwitching)return;
+  isSwitching=true;
+  const body=document.body;
+  const berries=document.querySelectorAll('.berry');
+  const heroCenter=document.querySelector('.hero-center');
+  const targetColors=flavor==='blue'?{inner:'#0b4f8a',mid:'#04294e',outer:'#010c14'}:{inner:'#0b8a78',mid:'#044e3b',outer:'#011411'};
+  gsap.to(body,{'--bg-inner':targetColors.inner,'--bg-mid':targetColors.mid,'--bg-outer':targetColors.outer,duration:1.5,ease:'power2.inOut'});
+
+  const spinObj={val:0,blur:0};
+  gsap.to(spinObj,{val:360,blur:15,duration:.6,ease:"power2.in",
+    onUpdate:()=>{switchSpin=spinObj.val;modelViewer.style.filter=`blur(${spinObj.blur}px)`},
+    onComplete:async()=>{
+      body.classList.toggle('blue-theme',flavor==='blue');
+      canFlavor=flavor;
+      gsap.to(spinObj,{val:720,blur:0,duration:1.5,ease:"back.out(0.7)",
+        onUpdate:()=>{switchSpin=spinObj.val;modelViewer.style.filter=`blur(${spinObj.blur}px)`},
+        onComplete:()=>{switchSpin=0;modelViewer.style.filter='none'}});
+    }
+  });
+
+  let completedBerries=0;
+  berries.forEach((berry)=>{
+    const bW=berry.offsetWidth/2,bH=berry.offsetHeight/2;
+    const centerX=(window.innerWidth/2-berry.offsetLeft-bW);
+    const centerY=(window.innerHeight/2-berry.offsetTop-bH);
+    const startAngle=parseFloat(berry.dataset.angle)||0;
+    const currentBaseX=parseFloat(berry.dataset.baseX)||0;
+    const currentBaseY=parseFloat(berry.dataset.baseY)||0;
+    const nextBaseX=(Math.random()-.5)*200;
+    const nextBaseY=(Math.random()-.5)*200;
+    gsap.set(berry,{rotation:startAngle,x:currentBaseX,y:currentBaseY});
+    gsap.timeline()
+    .to(berry,{x:centerX,y:centerY,rotation:startAngle+45,scale:.1,opacity:0,duration:.5,ease:"power2.in",
+      onComplete:()=>{berry.src=flavor==='blue'?BLUEBERRY:CHERRY;heroCenter.style.zIndex=50}})
+    .to(berry,{duration:.3})
+    .to(berry,{onStart:()=>{heroCenter.style.zIndex=1},x:nextBaseX,y:nextBaseY,rotation:startAngle+90,scale:1,opacity:1,duration:.9,ease:"back.out(1.5)",
+      onComplete:()=>{
+        berry.dataset.angle=startAngle+90;
+        berry.dataset.baseX=nextBaseX;berry.dataset.baseY=nextBaseY;
+        berry.dataset.rx=0;berry.dataset.ry=0;
+        completedBerries++;
+        if(completedBerries===berries.length)isSwitching=false;
+      }});
+  });
+}
+
+allBerries.forEach(b=>{
+  b.dataset.rx=0;b.dataset.ry=0;b.dataset.angle=Math.random()*360;
+  b.dataset.baseX=0;b.dataset.baseY=0;b.dataset.targetRx=0;b.dataset.targetRy=0;
+});
+
+let mouse={x:0,y:0,px:0,py:0};
+let currentMouse={x:0,y:0};
+window.addEventListener('mousemove',(e)=>{
+  mouse.x=(e.clientX/window.innerWidth)-.5;
+  mouse.y=(e.clientY/window.innerHeight)-.5;
+  mouse.px=e.clientX;mouse.py=e.clientY;
+});
+
+function animate(){
+  const time=Date.now()*.001;
+  currentMouse.x+=(mouse.x-currentMouse.x)*.05;
+  currentMouse.y+=(mouse.y-currentMouse.y)*.05;
+  canRot=(currentMouse.x*-70+switchSpin)*Math.PI/180;
+  modelViewer.style.transform=`translate(-50%,-50%) rotate(${25+currentMouse.y*8}deg) scale(${cs.v})`;
+  drawCan();
+  berriesFG.style.transform=`translate(${currentMouse.x*60}px, ${currentMouse.y*60}px)`;
+  berriesBG.style.transform=`translate(${currentMouse.x*-30}px, ${currentMouse.y*-30}px)`;
+  leavesBG.style.transform=`translate(${currentMouse.x*-15}px, ${currentMouse.y*-15}px)`;
+
+  if(!isSwitching){
+    allBerries.forEach((berry,i)=>{
+      const r=berry.getBoundingClientRect();
+      const bx=r.left+r.width/2,by=r.top+r.height/2;
+      const diffX=mouse.px-bx,diffY=mouse.py-by;
+      const distance=Math.sqrt(diffX*diffX+diffY*diffY);
+      let targetRx=0,targetRy=0,speedMult=1;
+      if(distance<400){
+        const force=(400-distance)/400;
+        targetRx=(diffX/distance)*force*-80;
+        targetRy=(diffY/distance)*force*-80;
+        speedMult=1+force*5;
+      }
+      let rx=parseFloat(berry.dataset.rx)||0;
+      let ry=parseFloat(berry.dataset.ry)||0;
+      let angle=parseFloat(berry.dataset.angle)||0;
+      let baseX=parseFloat(berry.dataset.baseX)||0;
+      let baseY=parseFloat(berry.dataset.baseY)||0;
+      rx+=(targetRx-rx)*.1;
+      ry+=(targetRy-ry)*.1;
+      angle+=.2*speedMult;
+      berry.dataset.rx=rx;berry.dataset.ry=ry;berry.dataset.angle=angle;
+      const dur=[5,7,6,8,5.5,6.5,9,11,10][i%9];
+      const phase=(time+i*.7)*(Math.PI*2/dur);
+      const floatY=Math.sin(phase)*15;
+      const floatAngle=Math.cos(phase)*6;
+      berry.style.transform=`translate(calc(${rx+baseX}px), calc(${ry+baseY}px + ${floatY}px)) rotate(calc(${angle}deg + ${floatAngle}deg))`;
+    });
+  }
+
+  document.querySelectorAll('.leaf').forEach((leaf,i)=>{
+    const dur=10+i*2;
+    const phase=(time+i*1.2)*(Math.PI*2/dur);
+    const floatY=Math.sin(phase)*20;
+    const floatX=Math.cos(phase*.5)*15;
+    const floatAngle=Math.sin(phase*.3)*15;
+    leaf.style.transform=`translate(${floatX}px, ${floatY}px) rotate(${floatAngle}deg)`;
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+
+const bubblesContainer=document.getElementById('bubbles-container');
+function createBubble(){
+  if(!bubblesContainer)return;
+  const bubble=document.createElement('img');
+  bubble.src='data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Cdefs%3E%3CradialGradient id=%22r%22 cx=%22.35%22 cy=%22.3%22 r=%22.8%22%3E%3Cstop offset=%220%22 stop-color=%22%23fff%22 stop-opacity=%22.9%22/%3E%3Cstop offset=%22.4%22 stop-color=%22%23fff%22 stop-opacity=%22.12%22/%3E%3Cstop offset=%221%22 stop-color=%22%23fff%22 stop-opacity=%22.3%22/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx=%2232%22 cy=%2232%22 r=%2230%22 fill=%22url%28%23r%29%22 stroke=%22%23fff%22 stroke-opacity=%22.6%22 stroke-width=%221.5%22/%3E%3Cellipse cx=%2222%22 cy=%2220%22 rx=%228%22 ry=%225%22 fill=%22%23fff%22 opacity=%22.8%22 transform=%22rotate%28-35 22 20%29%22/%3E%3C/svg%3E';
+  bubble.className='bubble-img';
+  bubble.style.width=Math.random()*20+10+'px';
+  bubble.style.height='auto';
+  bubble.style.left=Math.random()*100+'%';
+  bubble.style.bottom='-50px';
+  bubble.style.opacity=Math.random()*.4+.2;
+  const duration=Math.random()*6+4;
+  bubble.style.animation=`floatUpImg ${duration}s linear forwards`;
+  bubblesContainer.appendChild(bubble);
+  setTimeout(()=>bubble.remove(),duration*1000);
+}
+setInterval(createBubble,400);
+
+// ===== Branding / UI: panels, cart, contact, carousel arrows =====
+const FLAVORS={classic:{name:'Diet Classic',price:65},blue:{name:'Zero Lime',price:65}};
+const cart={classic:0,blue:0};
+const overlay=document.getElementById('overlay');
+const panelBody=document.getElementById('panel-body');
+const navItems=document.querySelectorAll('.nav-item');
+const toastEl=document.getElementById('toast');
+let toastTimer;
+function toast(msg){toastEl.textContent=msg;toastEl.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toastEl.classList.remove('show'),2200)}
+const cartCount=()=>cart.classic+cart.blue;
+function updateBadge(){const b=document.getElementById('cart-badge'),n=cartCount();b.textContent=n;b.classList.toggle('show',n>0)}
+function setActiveNav(p){navItems.forEach(n=>n.classList.toggle('active',n.dataset.panel===p))}
+function closePanel(){overlay.classList.remove('open');setActiveNav('home')}
+function openPanel(html,navKey){panelBody.innerHTML=html;overlay.classList.add('open');setActiveNav(navKey||'')}
+
+const PANELS={
+ ingredients:()=>`<h3>Ingredients</h3><p class="sub">Simple, clean and zero sugar. Nothing you can't pronounce.</p>
+  <div class="chips"><span class="chip">Sparkling water</span><span class="chip">Natural flavors</span><span class="chip">Citric acid</span><span class="chip">Stevia leaf extract</span><span class="chip">Vitamin C</span></div>
+  <div class="row"><span>Sugar</span><span class="m">0 g</span></div><div class="row"><span>Calories</span><span class="m">0 per can</span></div><div class="row"><span>Artificial colors</span><span class="m">None</span></div>`,
+ taste:()=>`<h3>Taste</h3><p class="sub">Crisp up front, smooth in the middle, clean to the finish.</p>
+  <div class="row"><span>Fizz</span><div class="bar"><i style="width:90%"></i></div></div>
+  <div class="row"><span>Sweetness</span><div class="bar"><i style="width:55%"></i></div></div>
+  <div class="row"><span>Citrus</span><div class="bar"><i style="width:75%"></i></div></div>
+  <div class="row"><span>Berry notes</span><div class="bar"><i style="width:65%"></i></div></div>
+  <p class="sub" style="margin-top:1rem">Try the other flavor on the home screen to taste the difference.</p>`,
+ eco:()=>`<h3>Eco</h3><p class="sub">Good for you, kinder to the planet.</p>
+  <div class="row"><span>100% recyclable aluminum cans</span><span class="m">♻</span></div>
+  <div class="row"><span>Plant-based inks</span><span class="m">🌱</span></div>
+  <div class="row"><span>Plastic-free multipacks</span><span class="m">✓</span></div>
+  <div class="row"><span>Carbon-neutral shipping goal</span><span class="m">2027</span></div>`,
+ reviews:()=>`<h3>Reviews</h3><p class="sub"><span class="stars">★★★★★</span> &nbsp;4.9 average · sample reviews</p>
+  <div class="review"><b>Mika R.</b> — Finally a zero-sugar soda that doesn't taste like zero sugar.</div>
+  <div class="review"><b>Jay D.</b> — Zero Lime is dangerously refreshing. Gone in a day.</div>
+  <div class="review"><b>Ana L.</b> — Love the design and the fizz. Stocked the fridge.</div>`,
+ contact:()=>`<h3>Contact Us</h3><p class="sub">Questions, collabs or wholesale? Drop us a line.</p>
+  <form id="contact-form"><label class="field">Name<input required name="name" placeholder="Your name"></label>
+  <label class="field">Email<input required type="email" name="email" placeholder="you@email.com"></label>
+  <label class="field">Message<textarea required name="msg" rows="4" placeholder="How can we help?"></textarea></label>
+  <button class="pill" type="submit">Send message</button></form>`
+};
+function cartHTML(){
+  const keys=Object.keys(cart).filter(k=>cart[k]>0);
+  if(!keys.length)return `<h3>Your Cart</h3><p class="sub">It's empty. Pick a flavor and hit Shop Now.</p>`;
+  let total=0;
+  const rows=keys.map(k=>{const sub=cart[k]*FLAVORS[k].price;total+=sub;
+    return `<div class="row"><div><b>${FLAVORS[k].name}</b><br><span class="m">₱${FLAVORS[k].price.toFixed(2)} each</span></div>
+    <div class="qty"><button data-dec="${k}">−</button><span>${cart[k]}</span><button data-inc="${k}">+</button></div><span>₱${sub.toFixed(2)}</span></div>`}).join('');
+  return `<h3>Your Cart</h3><p class="sub">${cartCount()} can${cartCount()>1?'s':''} ready to go.</p>${rows}
+   <div class="total"><span>Total</span><span>₱${total.toFixed(2)}</span></div><button class="pill" id="checkout-btn">Checkout</button>`;
+}
+function showCart(){openPanel(cartHTML(),'')}
+
+navItems.forEach(n=>n.addEventListener('click',e=>{
+  e.preventDefault();const p=n.dataset.panel;
+  closePanel();
+  if(p==='home')window.scrollTo({top:0,behavior:'smooth'});
+  else document.getElementById(p).scrollIntoView({behavior:'smooth'});
+}));
+const spyIds=['home','ingredients','eco','reviews'];
+function onScroll(){
+  document.getElementById('top-header').classList.toggle('scrolled',window.scrollY>40);
+  let cur='home';
+  spyIds.forEach(id=>{const el=id==='home'?null:document.getElementById(id);if(el&&el.getBoundingClientRect().top<window.innerHeight*.4)cur=id});
+  if(overlay&&!overlay.classList.contains('open'))setActiveNav(cur);
+}
+window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+// reveal on scroll
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+// product images reuse the card can art
+document.querySelectorAll('[data-img]').forEach(i=>{i.src=document.querySelector('.card[data-flavor="'+i.dataset.img+'"] img').src});
+document.querySelectorAll('[data-add]').forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.add;cart[k]++;updateBadge();toast(FLAVORS[k].name+' added to cart')}));
+document.getElementById('cta-shop').addEventListener('click',()=>{const f=document.querySelector('.card.active').dataset.flavor;cart[f]++;updateBadge();showCart()});
+document.getElementById('contact-btn').addEventListener('click',()=>openPanel(PANELS.contact(),''));
+document.getElementById('shop-btn').addEventListener('click',()=>{
+  const f=document.querySelector('.card.active').dataset.flavor;
+  cart[f]++;updateBadge();showCart();
+});
+document.getElementById('panel-close').addEventListener('click',closePanel);
+overlay.addEventListener('click',e=>{if(e.target===overlay)closePanel()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closePanel()});
+
+panelBody.addEventListener('click',e=>{
+  const inc=e.target.dataset.inc,dec=e.target.dataset.dec;
+  if(inc||dec){const k=inc||dec;cart[k]=Math.max(0,cart[k]+(inc?1:-1));updateBadge();panelBody.innerHTML=cartHTML();return}
+  if(e.target.id==='checkout-btn'){cart.classic=0;cart.blue=0;updateBadge();
+    panelBody.innerHTML=`<h3>Thank you!</h3><p class="sub">This is a demo store, so no payment was taken. Your cart has been cleared.</p><button class="pill" id="done-btn">Back home</button>`;return}
+  if(e.target.id==='done-btn')closePanel();
+});
+panelBody.addEventListener('submit',e=>{
+  if(e.target.id==='contact-form'){e.preventDefault();
+    panelBody.innerHTML=`<h3>Message sent!</h3><p class="sub">Thanks for reaching out. We'll get back to you soon.</p><button class="pill" id="done-btn">Close</button>`}
+});
+
+// Carousel arrows: step through flavors
+const cardList=[...cards];
+function stepFlavor(d){
+  if(isSwitching){toast('Hold on, switching flavor…');return}
+  const i=cardList.findIndex(c=>c.classList.contains('active'));
+  cardList[(i+d+cardList.length)%cardList.length].click();
+}
+document.getElementById('prev-flavor').addEventListener('click',()=>stepFlavor(-1));
+document.getElementById('next-flavor').addEventListener('click',()=>stepFlavor(1));
+// Keep brand accent in the toast when switching flavors
+cardList.forEach(c=>c.addEventListener('click',()=>{if(!isSwitching)return;toast(FLAVORS[c.dataset.flavor].name+' selected')}));
+
+// Click the big can to switch to the other flavor (squish + existing spin/berry transition)
+modelViewer.addEventListener('mouseenter',()=>{if(!isSwitching)gsap.to(cs,{v:1.04,duration:.4,ease:'power2.out'})});
+modelViewer.addEventListener('mouseleave',()=>{if(!isSwitching)gsap.to(cs,{v:1,duration:.4,ease:'power2.out'})});
+modelViewer.addEventListener('click',()=>{
+  if(isSwitching){toast('Hold on, switching flavor…');return}
+  gsap.timeline().to(cs,{v:.9,duration:.12,ease:'power2.in'}).to(cs,{v:1,duration:.7,ease:'elastic.out(1,.4)'});
+  stepFlavor(1);
+});
+</script>
+</body>
+</html>
